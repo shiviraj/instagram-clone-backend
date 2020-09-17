@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 require('./db/connect');
 
 const app = express();
+
 app.use(cookieParser());
 app.use(express.json({ limit: '4mb' }));
 
