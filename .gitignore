@@ -9,7 +9,7 @@
 
 # misc
 .DS_Store
-/config
+/config/dev.env
 playground
 
 npm-debug.log*
