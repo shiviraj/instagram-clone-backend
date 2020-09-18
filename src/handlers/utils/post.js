@@ -3,7 +3,7 @@ const Post = require('../../models/post');
 
 const getNewsFeeds = async () => {
   return await Post.find({})
-    .populate('postBy', ['name', 'username'])
+    .populate('postBy', ['name', 'username', 'avatar'])
     .sort({ postAt: -1 });
 };
 
