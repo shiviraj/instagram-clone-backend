@@ -5,4 +5,9 @@ const serveNewsFeeds = async (_req, res) => {
   res.send(newsFeed);
 };
 
-module.exports = { serveNewsFeeds };
+const toggleLike = async (req, res) => {
+  const post = await Post.toggleLike(req.params.id, req.user._id);
+  res.json(post.likes);
+};
+
+module.exports = { serveNewsFeeds, toggleLike };

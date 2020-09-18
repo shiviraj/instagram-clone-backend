@@ -7,4 +7,18 @@ const getNewsFeeds = async () => {
     .sort({ postAt: -1 });
 };
 
-module.exports = { getNewsFeeds };
+const toggleUserLike = (post, userID) => {
+  const isLiked = post.likes.find((id) => id.equals(userID));
+  if (isLiked) {
+    return post.likes.filter((id) => !id.equals(userID));
+  }
+  return post.likes.concat(userID);
+};
+
+const toggleLike = async (postID, userID) => {
+  const post = await Post.findById(postID);
+  post.likes = toggleUserLike(post, userID);
+  return await post.save();
+};
+
+module.exports = { getNewsFeeds, toggleLike };

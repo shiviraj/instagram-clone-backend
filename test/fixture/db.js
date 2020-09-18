@@ -29,7 +29,7 @@ const post1 = {
   content:
     'Jindgi ne kya liya kya diya, baad me dekhenge, abhi to hasne ko wajah tamam rakha jaaye!!!',
   photos: ['background-1.jpg', 'background-2.jpg'],
-  likes: [user1Id, user2Id],
+  likes: [user2Id],
 };
 
 const post2 = {
@@ -38,7 +38,7 @@ const post2 = {
   content:
     'Dil me utar jaaun aise ki lahoo ho jaau, tere ishq me subah vanaras shaam lucknow ho jaau!!',
   photos: ['background-3.jpg'],
-  likes: [user1Id],
+  likes: [user1Id, user2Id],
 };
 
 const setupDatabase = async () => {

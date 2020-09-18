@@ -1,6 +1,11 @@
 const request = require('supertest');
 const app = require('../src/app');
-const { setupDatabase, cleanupDatabase } = require('./fixture/db');
+const {
+  setupDatabase,
+  cleanupDatabase,
+  post1,
+  post2,
+} = require('./fixture/db');
 
 describe('Static files', () => {
   context('Images', () => {
@@ -11,11 +16,22 @@ describe('Static files', () => {
 });
 
 describe('App', () => {
-  before(setupDatabase);
-  after(cleanupDatabase);
   context('Api', () => {
+    before(setupDatabase);
+    after(cleanupDatabase);
     it('Should fetch all news feeds', (done) => {
       request(app).get('/api/newsFeeds').expect(200).end(done);
+    });
+  });
+
+  context('Api to update DB', () => {
+    beforeEach(setupDatabase);
+    afterEach(cleanupDatabase);
+    it('Should toggle the like on particular post', (done) => {
+      request(app).get(`/api/toggleLike/${post1._id}`).expect(200).end(done);
+    });
+    it('Should toggle the like on particular post', (done) => {
+      request(app).get(`/api/toggleLike/${post2._id}`).expect(200).end(done);
     });
   });
 });
