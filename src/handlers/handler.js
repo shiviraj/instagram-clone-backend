@@ -10,4 +10,9 @@ const toggleLike = async (req, res) => {
   res.json(post.likes);
 };
 
-module.exports = { serveNewsFeeds, toggleLike };
+const serveAuthorsPost = async (req, res) => {
+  const posts = await Post.authorsPost(req.user._id);
+  res.json(posts);
+};
+
+module.exports = { serveNewsFeeds, toggleLike, serveAuthorsPost };

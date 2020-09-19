@@ -22,6 +22,10 @@ describe('App', () => {
     it('Should fetch all news feeds', (done) => {
       request(app).get('/api/newsFeeds').expect(200).end(done);
     });
+
+    it('Should get all the post of given user', (done) => {
+      request(app).get('/api/authorPosts').expect(200).end(done);
+    });
   });
 
   context('Api to update DB', () => {
