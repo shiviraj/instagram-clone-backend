@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema({
   username: { type: String, trim: true, required: true, unique: true },
   email: { type: String, trim: true, required: true, unique: true },
   password: { type: String, trim: true },
-  avatar: { type: String },
+  avatar: { type: String, default: 'avatar.jpg' },
   createdAt: { type: Number, default: new Date() },
   followers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   following: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema({
 userSchema.methods.generateAuthToken = async function () {
   const user = this;
   const { SECRET_CODE } = process.env;
-  const options = { _id: user._id.toString() };
+  const options = { _id: user._id.toString(), username: user.username };
   const token = jwt.sign(options, SECRET_CODE, { expiresIn: '30 days' });
   user.tokens = user.tokens.concat({ token });
   await user.save();
@@ -33,7 +33,7 @@ userSchema.pre('save', async function (next) {
 });
 
 userSchema.statics.findByCredentials = async function (email, password) {
-  const user = await Author.findOne({ email });
+  const user = await User.findOne({ email });
   if (!user) throw new Error('Unable to login');
   const isMatch = await bcrypt.compare(password, user.password);
   if (!isMatch) throw new Error('Unable to login');
@@ -46,4 +46,5 @@ userSchema.virtual('posts', {
   foreignField: 'postBy',
 });
 
-module.exports = mongoose.model('User', userSchema);
+const User = mongoose.model('User', userSchema);
+module.exports = User;

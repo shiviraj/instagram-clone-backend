@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken');
 const User = require('../../src/models/user');
 const Post = require('../../src/models/post');
 
@@ -13,6 +14,14 @@ const user1 = {
   username: 'shiviraj',
   email: 'shivi@raj.com',
   password: 'shivi',
+  tokens: [
+    { token: jwt.sign({ _id: user1Id }, process.env.SECRET_CODE) },
+    {
+      token: jwt.sign({ _id: user1Id }, process.env.SECRET_CODE, {
+        expiresIn: 0,
+      }),
+    },
+  ],
 };
 
 const user2 = {
@@ -21,6 +30,7 @@ const user2 = {
   username: 'photongupta',
   email: 'rashmi@gupta.com',
   password: 'rashmi',
+  tokens: [{ token: jwt.sign({ _id: user2Id }, process.env.SECRET_CODE) }],
 };
 
 const post1 = {
