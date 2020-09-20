@@ -22,4 +22,9 @@ const signInUser = async (req, res) => {
   }
 };
 
-module.exports = { signUpUser, signInUser };
+const serveUser = async (req, res) => {
+  const user = await User.findByUsername(req.params.username);
+  res.json(user);
+};
+
+module.exports = { signUpUser, signInUser, serveUser };

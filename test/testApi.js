@@ -30,7 +30,15 @@ describe('App', () => {
 
     it('Should get all the post of given user', (done) => {
       request(app)
-        .get('/api/authorPosts')
+        .get(`/api/getPosts/${user1.username}`)
+        .set('Cookie', `token=${user1.tokens[0].token}`)
+        .expect(200)
+        .end(done);
+    });
+
+    it('Should find user by username', (done) => {
+      request(app)
+        .get(`/api/getUser/${user1.username}`)
         .set('Cookie', `token=${user1.tokens[0].token}`)
         .expect(200)
         .end(done);

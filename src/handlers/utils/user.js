@@ -8,4 +8,9 @@ const signIn = async ({ email, password }) => {
   return await User.findByCredentials(email, password);
 };
 
-module.exports = { signUp, signIn };
+const findByUsername = async (username) => {
+  const select = 'name;username;avatar;_id;following;followers'.split(';');
+  return await User.findOne({ username }).select(select);
+};
+
+module.exports = { signUp, signIn, findByUsername };

@@ -20,8 +20,8 @@ const toggleLike = async (postID, userID) => {
   return await post.save();
 };
 
-const authorsPost = async (authorID) => {
-  return await Post.find({ postBy: authorID });
+const usersPost = async (userID) => {
+  return await Post.find({ postBy: userID });
 };
 
-module.exports = { getNewsFeeds, toggleLike, authorsPost };
+module.exports = { getNewsFeeds, toggleLike, usersPost };

@@ -1,12 +1,12 @@
 const express = require('express');
 const auth = require('../middleware/auth');
 
-const { signUpUser, signInUser } = require('../handlers/user');
+const { signUpUser, signInUser, serveUser } = require('../handlers/user');
 
 const {
   serveNewsFeeds,
   toggleLike,
-  serveAuthorsPost,
+  serveUsersPost,
 } = require('../handlers/post');
 
 const route = express.Router();
@@ -16,8 +16,9 @@ route.post('/signIn', signInUser);
 
 route.use(auth);
 route.get('/userDetails', (req, res) => res.send(req.user));
+route.get('/getUser/:username', serveUser);
 route.get('/newsFeeds', serveNewsFeeds);
 route.get('/toggleLike/:id', toggleLike);
-route.get('/authorPosts', serveAuthorsPost);
+route.get('/getPosts/:username', serveUsersPost);
 
 module.exports = route;

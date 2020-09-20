@@ -1,4 +1,5 @@
 const Post = require('./utils/post');
+const User = require('./utils/user');
 
 const serveNewsFeeds = async (_req, res) => {
   const newsFeed = await Post.getNewsFeeds();
@@ -10,9 +11,10 @@ const toggleLike = async (req, res) => {
   res.json(post.likes);
 };
 
-const serveAuthorsPost = async (req, res) => {
-  const posts = await Post.authorsPost(req.user._id);
+const serveUsersPost = async (req, res) => {
+  const { _id } = await User.findByUsername(req.params.username);
+  const posts = await Post.usersPost(_id);
   res.json(posts);
 };
 
-module.exports = { serveNewsFeeds, toggleLike, serveAuthorsPost };
+module.exports = { serveNewsFeeds, toggleLike, serveUsersPost };
