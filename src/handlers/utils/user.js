@@ -1,4 +1,5 @@
 const User = require('../../models/user');
+const { getAccessToken, getGithubUser } = require('./oauth');
 
 const signUp = async (user) => {
   return await new User(user).save();
@@ -13,4 +14,13 @@ const findByUsername = async (username) => {
   return await User.findOne({ username }).select(select);
 };
 
-module.exports = { signUp, signIn, findByUsername };
+const signInOAuth = async (code) => {
+  const { data } = await getAccessToken(code);
+  const user = await getGithubUser(data.access_token);
+  const userData = await User.findOne({ username: user.username });
+  if (userData) return userData;
+  const newUser = new User(user);
+  return await newUser.save();
+};
+
+module.exports = { signUp, signIn, findByUsername, signInOAuth };

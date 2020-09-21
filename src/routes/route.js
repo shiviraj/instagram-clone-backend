@@ -1,7 +1,13 @@
 const express = require('express');
 const auth = require('../middleware/auth');
 
-const { signUpUser, signInUser, serveUser } = require('../handlers/user');
+const {
+  signUpUser,
+  signInUser,
+  serveUser,
+  serveClientID,
+  signInOAuth,
+} = require('../handlers/user');
 
 const {
   serveNewsFeeds,
@@ -13,6 +19,8 @@ const route = express.Router();
 
 route.post('/signUp', signUpUser);
 route.post('/signIn', signInUser);
+route.get('/getClientID', serveClientID);
+route.get('/signInOauth/:code', signInOAuth);
 
 route.use(auth);
 route.get('/userDetails', (req, res) => res.send(req.user));

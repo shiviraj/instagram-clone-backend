@@ -27,4 +27,25 @@ const serveUser = async (req, res) => {
   res.json(user);
 };
 
-module.exports = { signUpUser, signInUser, serveUser };
+const serveClientID = (_req, res) => {
+  res.send({ clientID: process.env.CLIENT_ID });
+};
+
+const signInOAuth = async (req, res) => {
+  try {
+    const user = await User.signInOAuth(req.params.code);
+    const token = await user.generateAuthToken();
+    Object.assign(user, { password: null, tokens: [] });
+    res.cookie('token', token).json(user);
+  } catch (error) {
+    res.sendStatus(400);
+  }
+};
+
+module.exports = {
+  signUpUser,
+  signInUser,
+  serveUser,
+  serveClientID,
+  signInOAuth,
+};

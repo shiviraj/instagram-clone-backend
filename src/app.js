@@ -8,6 +8,11 @@ const app = express();
 app.use(cookieParser());
 app.use(express.json({ limit: '4mb' }));
 
+app.use((req, res, next) => {
+  console.log(req.method, req.path, req.url);
+  next();
+});
+
 app.use('/api', route);
 app.use('/images', express.static('./imageStorage'));
 
