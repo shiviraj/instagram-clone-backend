@@ -1,6 +1,8 @@
 const express = require('express');
 const auth = require('../middleware/auth');
 
+const { mediaValidator, uploadMedia } = require('../handlers/media');
+
 const {
   signUpUser,
   signInUser,
@@ -13,6 +15,7 @@ const {
   serveNewsFeeds,
   toggleLike,
   serveUsersPost,
+  uploadPost,
 } = require('../handlers/post');
 
 const route = express.Router();
@@ -28,5 +31,6 @@ route.get('/getUser/:username', serveUser);
 route.get('/newsFeeds', serveNewsFeeds);
 route.get('/toggleLike/:id', toggleLike);
 route.get('/getPosts/:username', serveUsersPost);
-
+route.post('/uploadPost', uploadPost);
+route.post('/uploadMedia', mediaValidator, uploadMedia);
 module.exports = route;

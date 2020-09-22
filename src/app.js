@@ -6,14 +6,11 @@ require('./db/connect');
 const app = express();
 
 app.use(cookieParser());
-app.use(express.json({ limit: '4mb' }));
-
-app.use((req, res, next) => {
-  console.log(req.method, req.path, req.url);
-  next();
-});
+app.use(express.json({ limit: '30mb' }));
 
 app.use('/api', route);
-app.use('/images', express.static('./imageStorage'));
+app.use('/media', express.static('./media/posts'));
+app.use('/avatar', express.static('./media/avatars'));
+app.use('/blob', express.static('./media/blobs'));
 
 module.exports = app;

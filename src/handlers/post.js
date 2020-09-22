@@ -1,5 +1,6 @@
 const Post = require('./utils/post');
 const User = require('./utils/user');
+const { moveMedia } = require('./media');
 
 const serveNewsFeeds = async (_req, res) => {
   const newsFeed = await Post.getNewsFeeds();
@@ -17,4 +18,15 @@ const serveUsersPost = async (req, res) => {
   res.json(posts);
 };
 
-module.exports = { serveNewsFeeds, toggleLike, serveUsersPost };
+const uploadPost = async (req, res) => {
+  moveMedia(req.body.media);
+  await Post.upload(req.body, req.user);
+  res.json({});
+};
+
+module.exports = {
+  serveNewsFeeds,
+  toggleLike,
+  serveUsersPost,
+  uploadPost,
+};

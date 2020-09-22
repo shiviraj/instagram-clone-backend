@@ -24,4 +24,9 @@ const usersPost = async (userID) => {
   return await Post.find({ postBy: userID });
 };
 
-module.exports = { getNewsFeeds, toggleLike, usersPost };
+const upload = async ({ content, media }, { _id }) => {
+  const post = Object.assign({ postBy: _id, content, photos: media });
+  await new Post(post).save();
+};
+
+module.exports = { getNewsFeeds, toggleLike, usersPost, upload };

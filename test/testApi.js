@@ -11,7 +11,7 @@ const {
 describe('Static files', () => {
   context('Images', () => {
     it('Should serve the images by path', (done) => {
-      request(app).get('/images/background-1.jpg').expect(200).end(done);
+      request(app).get('/media/background-1.jpg').expect(200).end(done);
     });
   });
 });
