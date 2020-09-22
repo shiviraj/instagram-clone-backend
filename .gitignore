@@ -11,6 +11,7 @@
 .DS_Store
 /config/dev.env
 playground
+/media
 
 npm-debug.log*
 yarn-debug.log*

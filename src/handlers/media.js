@@ -6,6 +6,7 @@ const uuid = require('uuid');
 
 const blobPath = path.join(__dirname, '../../media/blobs');
 const postsPath = path.join(__dirname, '../../media/posts');
+const avatarsPath = path.join(__dirname, '../../media/avatars');
 
 const upload = multer({ limits: { fileSize: 30000000 } });
 const mediaValidator = upload.single('file');
@@ -25,4 +26,13 @@ const moveMedia = (files) => {
   });
 };
 
-module.exports = { mediaValidator, uploadMedia, moveMedia };
+const uploadAvatar = async (file) => {
+  const imageId = uuid.v4();
+  const extension = file.mimetype.replace(/(.*?)\//g, '');
+  const filename = `avatar_${imageId}.${extension}`;
+  const buffer = await sharp(file.buffer).resize(300, 200).toBuffer();
+  fs.writeFileSync(`${avatarsPath}/${filename}`, buffer);
+  return filename;
+};
+
+module.exports = { mediaValidator, uploadMedia, moveMedia, uploadAvatar };

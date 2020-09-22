@@ -9,6 +9,9 @@ const {
   serveUser,
   serveClientID,
   signInOAuth,
+  updateProfile,
+  updatePassword,
+  updateAvatar,
 } = require('../handlers/user');
 
 const {
@@ -33,4 +36,7 @@ route.get('/toggleLike/:id', toggleLike);
 route.get('/getPosts/:username', serveUsersPost);
 route.post('/uploadPost', uploadPost);
 route.post('/uploadMedia', mediaValidator, uploadMedia);
+route.post('/uploadAvatar', mediaValidator, updateAvatar);
+route.post('/changeProfile', updateProfile);
+route.post('/changePassword', updatePassword);
 module.exports = route;

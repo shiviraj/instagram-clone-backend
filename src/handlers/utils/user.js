@@ -23,4 +23,35 @@ const signInOAuth = async (code) => {
   return await newUser.save();
 };
 
-module.exports = { signUp, signIn, findByUsername, signInOAuth };
+const updateProfile = async (id, profile) => {
+  const user = await User.findById(id);
+  Object.assign(user, profile);
+  return await user.save();
+};
+
+const updatePassword = async (id, { pwd, oldPwd }) => {
+  const user = await User.findById(id);
+  const isPasswordExists =
+    oldPwd && (await User.findByCredentials(user.email, oldPwd));
+  if ((user.password && !oldPwd) || (oldPwd && !isPasswordExists)) {
+    throw new Error('Old password is not match');
+  }
+  Object.assign(user, { password: pwd });
+  return await user.save();
+};
+
+const updateAvatar = async (id, avatar) => {
+  const user = await User.findById(id);
+  Object.assign(user, { avatar });
+  return await user.save();
+};
+
+module.exports = {
+  signUp,
+  signIn,
+  findByUsername,
+  signInOAuth,
+  updateProfile,
+  updatePassword,
+  updateAvatar,
+};

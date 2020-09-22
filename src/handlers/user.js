@@ -1,4 +1,5 @@
 const User = require('./utils/user');
+const Media = require('./media');
 
 const signUpUser = async (req, res) => {
   try {
@@ -42,10 +43,29 @@ const signInOAuth = async (req, res) => {
   }
 };
 
+const updateProfile = async (req, res) => {
+  const user = await User.updateProfile(req.user._id, req.body);
+  res.json(user);
+};
+
+const updatePassword = async (req, res) => {
+  const user = await User.updatePassword(req.user._id, req.body);
+  res.json(user);
+};
+
+const updateAvatar = async (req, res) => {
+  const avatar = await Media.uploadAvatar(req.file);
+  const user = await User.updateAvatar(req.user._id, avatar);
+  res.json(user);
+};
+
 module.exports = {
   signUpUser,
   signInUser,
   serveUser,
   serveClientID,
   signInOAuth,
+  updateProfile,
+  updatePassword,
+  updateAvatar,
 };
