@@ -4,6 +4,8 @@ const auth = require('../middleware/auth');
 const { mediaValidator, uploadMedia } = require('../handlers/media');
 
 const {
+  serveIsAvailable,
+  serveIsAvailableEmail,
   signUpUser,
   signInUser,
   serveUser,
@@ -23,6 +25,8 @@ const {
 
 const route = express.Router();
 
+route.post('/isAvailable', serveIsAvailable);
+route.post('/isAvailableEmail', serveIsAvailableEmail);
 route.post('/signUp', signUpUser);
 route.post('/signIn', signInUser);
 route.get('/getClientID', serveClientID);

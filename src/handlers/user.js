@@ -1,6 +1,16 @@
 const User = require('./utils/user');
 const Media = require('./media');
 
+const serveIsAvailable = async (req, res) => {
+  const result = await User.isAvailable(req.body.username);
+  res.json(result);
+};
+
+const serveIsAvailableEmail = async (req, res) => {
+  const result = await User.isAvailableEmail(req.body.email);
+  res.json(result);
+};
+
 const signUpUser = async (req, res) => {
   try {
     const user = await User.signUp(req.body);
@@ -60,6 +70,8 @@ const updateAvatar = async (req, res) => {
 };
 
 module.exports = {
+  serveIsAvailable,
+  serveIsAvailableEmail,
   signUpUser,
   signInUser,
   serveUser,

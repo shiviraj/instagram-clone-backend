@@ -1,6 +1,16 @@
 const User = require('../../models/user');
 const { getAccessToken, getGithubUser } = require('./oauth');
 
+const isAvailable = async (username) => {
+  const user = await User.findOne({ username });
+  return { result: !user };
+};
+
+const isAvailableEmail = async (email) => {
+  const user = await User.findOne({ email });
+  return { result: !user };
+};
+
 const signUp = async (user) => {
   return await new User(user).save();
 };
@@ -47,6 +57,8 @@ const updateAvatar = async (id, avatar) => {
 };
 
 module.exports = {
+  isAvailable,
+  isAvailableEmail,
   signUp,
   signIn,
   findByUsername,
