@@ -18,10 +18,13 @@ const {
 
 const {
   serveNewsFeeds,
+  servePost,
   toggleLike,
   serveUsersPost,
   uploadPost,
 } = require('../handlers/post');
+
+const { updateComment } = require('../handlers/comments');
 
 const route = express.Router();
 
@@ -36,7 +39,9 @@ route.use(auth);
 route.get('/userDetails', (req, res) => res.send(req.user));
 route.get('/getUser/:username', serveUser);
 route.get('/newsFeeds', serveNewsFeeds);
+route.get('/getPost/:id', servePost);
 route.get('/toggleLike/:id', toggleLike);
+route.post('/comment', updateComment);
 route.get('/getPosts/:username', serveUsersPost);
 route.post('/uploadPost', uploadPost);
 route.post('/uploadMedia', mediaValidator, uploadMedia);

@@ -7,6 +7,11 @@ const serveNewsFeeds = async (_req, res) => {
   res.send(newsFeed);
 };
 
+const servePost = async (req, res) => {
+  const post = await Post.getPost(req.params.id);
+  res.json(post);
+};
+
 const toggleLike = async (req, res) => {
   const post = await Post.toggleLike(req.params.id, req.user._id);
   res.json(post.likes);
@@ -26,6 +31,7 @@ const uploadPost = async (req, res) => {
 
 module.exports = {
   serveNewsFeeds,
+  servePost,
   toggleLike,
   serveUsersPost,
   uploadPost,

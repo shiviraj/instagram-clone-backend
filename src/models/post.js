@@ -10,6 +10,7 @@ const postSchema = new mongoose.Schema({
   photos: [{ type: String }],
   likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   postAt: { type: Number, default: new Date() },
+  comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
 });
 
 module.exports = mongoose.model('Post', postSchema);
