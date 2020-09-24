@@ -19,6 +19,11 @@ const signIn = async ({ email, password }) => {
   return await User.findByCredentials(email, password);
 };
 
+const logout = async (userToken, user) => {
+  user.tokens = user.tokens.filter(({ token }) => token !== userToken);
+  return await user.save();
+};
+
 const findByUsername = async (username) => {
   const select = 'name;username;avatar;_id;following;followers'.split(';');
   return await User.findOne({ username }).select(select);
@@ -61,6 +66,7 @@ module.exports = {
   isAvailableEmail,
   signUp,
   signIn,
+  logout,
   findByUsername,
   signInOAuth,
   updateProfile,

@@ -8,6 +8,7 @@ const {
   serveIsAvailableEmail,
   signUpUser,
   signInUser,
+  logoutUser,
   serveUser,
   serveClientID,
   signInOAuth,
@@ -36,6 +37,7 @@ route.get('/getClientID', serveClientID);
 route.get('/signInOauth/:code', signInOAuth);
 
 route.use(auth);
+route.get('/logout', logoutUser);
 route.get('/userDetails', (req, res) => res.send(req.user));
 route.get('/getUser/:username', serveUser);
 route.get('/newsFeeds', serveNewsFeeds);

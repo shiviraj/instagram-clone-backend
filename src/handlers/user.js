@@ -33,6 +33,11 @@ const signInUser = async (req, res) => {
   }
 };
 
+const logoutUser = async (req, res) => {
+  await User.logout(req.token, req.user);
+  res.json({});
+};
+
 const serveUser = async (req, res) => {
   const user = await User.findByUsername(req.params.username);
   res.json(user);
@@ -74,6 +79,7 @@ module.exports = {
   serveIsAvailableEmail,
   signUpUser,
   signInUser,
+  logoutUser,
   serveUser,
   serveClientID,
   signInOAuth,
