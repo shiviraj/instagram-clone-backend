@@ -43,6 +43,11 @@ const serveUser = async (req, res) => {
   res.json(user);
 };
 
+const serveUsers = async (req, res) => {
+  const users = await User.findUsers(req.params.username);
+  res.json(users);
+};
+
 const serveClientID = (_req, res) => {
   res.send({ clientID: process.env.CLIENT_ID });
 };
@@ -81,6 +86,7 @@ module.exports = {
   signInUser,
   logoutUser,
   serveUser,
+  serveUsers,
   serveClientID,
   signInOAuth,
   updateProfile,

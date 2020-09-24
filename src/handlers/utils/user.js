@@ -29,6 +29,12 @@ const findByUsername = async (username) => {
   return await User.findOne({ username }).select(select);
 };
 
+const findUsers = async (username) => {
+  const select = 'name;username;avatar;_id;'.split(';');
+  const regex = new RegExp(username);
+  return await User.find({ username: regex }).select(select);
+};
+
 const signInOAuth = async (code) => {
   const { data } = await getAccessToken(code);
   const user = await getGithubUser(data.access_token);
@@ -68,6 +74,7 @@ module.exports = {
   signIn,
   logout,
   findByUsername,
+  findUsers,
   signInOAuth,
   updateProfile,
   updatePassword,

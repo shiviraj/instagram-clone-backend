@@ -10,6 +10,7 @@ const {
   signInUser,
   logoutUser,
   serveUser,
+  serveUsers,
   serveClientID,
   signInOAuth,
   updateProfile,
@@ -40,6 +41,7 @@ route.use(auth);
 route.get('/logout', logoutUser);
 route.get('/userDetails', (req, res) => res.send(req.user));
 route.get('/getUser/:username', serveUser);
+route.get('/getUsers/:username', serveUsers);
 route.get('/newsFeeds', serveNewsFeeds);
 route.get('/getPost/:id', servePost);
 route.get('/toggleLike/:id', toggleLike);
