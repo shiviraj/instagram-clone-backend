@@ -54,10 +54,11 @@ const serveClientID = (_req, res) => {
 
 const signInOAuth = async (req, res) => {
   try {
-    const user = await User.signInOAuth(req.params.code);
+    console.log(req.query.code);
+    const user = await User.signInOAuth(req.query.code);
     const token = await user.generateAuthToken();
     Object.assign(user, { password: null, tokens: [] });
-    res.cookie('token', token).json(user);
+    res.cookie('token', token).redirect('/');
   } catch (error) {
     res.sendStatus(400);
   }

@@ -25,8 +25,8 @@ const serveUsersPost = async (req, res) => {
 
 const uploadPost = async (req, res) => {
   moveMedia(req.body.media);
-  await Post.upload(req.body, req.user);
-  res.json({});
+  const post = await Post.upload(req.body, req.user);
+  res.json(post);
 };
 
 module.exports = {

@@ -35,7 +35,7 @@ route.post('/isAvailableEmail', serveIsAvailableEmail);
 route.post('/signUp', signUpUser);
 route.post('/signIn', signInUser);
 route.get('/getClientID', serveClientID);
-route.get('/signInOauth/:code', signInOAuth);
+route.get('/oauth', signInOAuth);
 
 route.use(auth);
 route.get('/logout', logoutUser);

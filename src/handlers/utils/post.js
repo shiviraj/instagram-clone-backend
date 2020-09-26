@@ -50,7 +50,7 @@ const usersPost = async (userID) => {
 
 const upload = async ({ content, media }, { _id }) => {
   const post = Object.assign({ postBy: _id, content, photos: media });
-  await new Post(post).save();
+  return await new Post(post).save();
 };
 
 module.exports = { getNewsFeeds, toggleLike, usersPost, upload, getPost };
